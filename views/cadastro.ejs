@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Usuário</title>
+</head>
+<body>
+    <h1>Cadastro de Usuário</h1>
+    <% if (erro) { %>
+        <p style="color: red;"><%= erro %></p>
+    <% } %>
+    <form action="/cadastro" method="post">
+        <label for="nomeUser">Usuário:</label>
+        <input type="text" id="nomeUser" name="nomeUser" required>
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" required>
+        <input type="submit" value="Cadastrar">
+    </form>
+</body>
+</html>
