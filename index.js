@@ -22,6 +22,10 @@ app.get('/login', (req, res) => {
 
 app.post('/login', usuarioController.autenticarUsuario);
 
+app.get('/homepage', (req, res) => {
+  res.render('homepage', { erro: null });
+})
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);

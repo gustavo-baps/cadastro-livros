@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>Login</title>
 </head>
 <body>
     <h1>Login</h1>
     <% if (erro) { %>
-        <p style="color: red;"><%= erro %></p>
+        <p style="color: rgb(194, 2, 2);"><%= erro %></p>
     <% } %>
     <form action="/login" method="post">
         <label for="nomeUser">Usuário:</label>
