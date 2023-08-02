@@ -6,7 +6,7 @@ async function cadastrarUsuario(req, res){
   const {nomeUser, senha} = req.body;
 
   try {
-    // Hash da senha usando bcrypt antes de salvá-la no banco de dados
+    //hash da senha usando bcrypt antes de salvar no banco de dados
     const hashSenha = await bcrypt.hash(senha, saltRounds);
 
     await addUserToDatabase(nomeUser, hashSenha);
@@ -29,29 +29,31 @@ function addUserToDatabase(nomeUser, senha){
   });
 }
 
-async function autenticarUsuario(nomeUser, senha) {
-  try {
+async function autenticarUsuario(nomeUser, senha){
+  try{
     const usuario = await getUserFromDatabase(nomeUser);
-    if (usuario && await bcrypt.compare(senha, usuario.senha)) {
-      // Autenticação bem-sucedida, retornar o usuário autenticado
+    if(usuario && await bcrypt.compare(senha, usuario.senha)){
+      //autenticação bem-sucedida, retornar o usuário autenticado
       return usuario;
-    } else {
-      // Credenciais inválidas, retornar null
+    } 
+    else{
+      //credenciais inválidas, retornar null
       return null;
     }
-  } catch (error) {
-    // Tratamento de erros
+  }catch(error){
+    //tratamento de erros
     throw new Error('Erro ao autenticar o usuário.');
   }
 }
 
-function getUserFromDatabase(nomeUser) {
+function getUserFromDatabase(nomeUser){
   return new Promise((resolve, reject) => {
     const query = 'SELECT * FROM usuarios WHERE nomeUser = ?';
     connection.query(query, [nomeUser], (err, results) => {
       if(err){
         reject(err);
-      }else{
+      }
+      else{
         const usuario = results[0]; //pega o primeiro usuário encontrado (supondo que nomeUser é único).
         resolve(usuario);
       }
@@ -59,24 +61,25 @@ function getUserFromDatabase(nomeUser) {
   });
 }
 
-async function excluirUsuario(req, res) {
-  const { nomeUser } = req.body;
+async function excluirUsuario(req, res){
+  const {nomeUser} = req.body;
 
-  try {
+  try{
     await removeUserFromDatabase(nomeUser);
     res.redirect('/login');
-  } catch (error) {
+  }catch(error){
     res.render('homepage', { usuario: null, erro: 'Erro ao excluir o usuário.' });
   }
 }
 
-function removeUserFromDatabase(nomeUser) {
+function removeUserFromDatabase(nomeUser){
   return new Promise((resolve, reject) => {
     const query = 'DELETE FROM usuarios WHERE nomeUser = ?';
     connection.query(query, [nomeUser], (err, results) => {
-      if (err) {
+      if(err){
         reject(err);
-      } else {
+      } 
+      else{
         resolve(results);
       }
     });
