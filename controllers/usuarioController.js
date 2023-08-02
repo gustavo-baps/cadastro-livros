@@ -24,22 +24,19 @@ function addUserToDatabase(nomeUser, senha){
   });
 }
 
-async function autenticarUsuario(req, res){
-  const { nomeUser, senha } = req.body;
-
-  try{
+async function autenticarUsuario(nomeUser, senha) {
+  try {
     const usuario = await getUserFromDatabase(nomeUser);
-    if(usuario && usuario.senha === senha){
-      //autenticação bem-sucedida. redirecionar para a página protegida ou exibir mensagem de sucesso
-      res.redirect('/homepage');
-    } 
-    else{
-      //dados invalidos: redirecionar pra página de login ou exibir mensagem de erro
-      res.render('login', { erro: 'Credenciais inválidas!' });
+    if (usuario && usuario.senha === senha) {
+      // Autenticação bem-sucedida, retornar o usuário autenticado
+      return usuario;
+    } else {
+      // Credenciais inválidas, retornar null
+      return null;
     }
-  }catch(error){
-    //tratamento de erros
-    res.render('login', { erro: 'Erro ao autenticar o usuário.' });
+  } catch (error) {
+    // Tratamento de erros
+    throw new Error('Erro ao autenticar o usuário.');
   }
 }
 
@@ -57,7 +54,33 @@ function getUserFromDatabase(nomeUser) {
   });
 }
 
+async function excluirUsuario(req, res) {
+  const { nomeUser } = req.body;
+
+  try {
+    await removeUserFromDatabase(nomeUser);
+    res.redirect('/login');
+  } catch (error) {
+    res.render('homepage', { usuario: null, erro: 'Erro ao excluir o usuário.' });
+  }
+}
+
+function removeUserFromDatabase(nomeUser) {
+  return new Promise((resolve, reject) => {
+    const query = 'DELETE FROM usuarios WHERE nomeUser = ?';
+    connection.query(query, [nomeUser], (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+}
+
 module.exports = {
   cadastrarUsuario,
-  autenticarUsuario
+  autenticarUsuario,
+  getUserFromDatabase,
+  excluirUsuario
 };

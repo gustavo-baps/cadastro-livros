@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Homepage</title>
 </head>
 <body>
-    <h1>Bem vindo ao sistema!</h1>
+    <h1>Bem-vindo ao sistema!</h1>
+    <% if (usuario) { %>
+      <p>Usuário logado: <%= usuario.nomeUser %></p>
+      <!-- Adicione o formulário para exclusão do usuário -->
+      <form action="/delete" method="post">
+        <input type="hidden" name="nomeUser" value="<%= usuario.nomeUser %>">
+        <input type="submit" value="Excluir Usuário">
+      </form>
+    <% } %>
 </body>
 </html>
