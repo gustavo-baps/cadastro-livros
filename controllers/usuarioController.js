@@ -1,12 +1,17 @@
-const connection = require('../models/db')
+const connection = require('../models/db');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 async function cadastrarUsuario(req, res){
-  const { nomeUser, senha } = req.body;
+  const {nomeUser, senha} = req.body;
 
-  try{
-    await addUserToDatabase(nomeUser, senha);
+  try {
+    // Hash da senha usando bcrypt antes de salvá-la no banco de dados
+    const hashSenha = await bcrypt.hash(senha, saltRounds);
+
+    await addUserToDatabase(nomeUser, hashSenha);
     res.redirect('/login');
-  }catch(error){
+  } catch (error) {
     res.render('cadastro', { erro: 'Usuário já existe!' });
   }
 }
@@ -27,7 +32,7 @@ function addUserToDatabase(nomeUser, senha){
 async function autenticarUsuario(nomeUser, senha) {
   try {
     const usuario = await getUserFromDatabase(nomeUser);
-    if (usuario && usuario.senha === senha) {
+    if (usuario && await bcrypt.compare(senha, usuario.senha)) {
       // Autenticação bem-sucedida, retornar o usuário autenticado
       return usuario;
     } else {
