@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Livros Cadastrados</title>
+</head>
+<body>
+  <%- include('./header')%>
+    <h1>Livros Cadastrados</h1>
+    <% if(livros && livros.length > 0){%>
+      <ul>
+        <% livros.forEach(livro => { %>
+          <li>
+            <h2><%= livro.titulo %></h2>
+            <p><strong>Autor:</strong> <%= livro.autor %></p>
+            <p><strong>Categoria:</strong> <%= livro.categoria %></p>
+            <p><strong>ISBN:</strong> <%= livro.isbn %></p>
+            <!-- Outros detalhes do livro... -->
+            <img src="<%= livro.imagem_capa %>" alt="<%= livro.titulo %>">
+            <form action="/deleteLivro" method="post">
+                <input type="hidden" name="id" value="<%= livro.idn %>">
+                <button type="submit">Excluir</button>
+            </form>
+          </li>
+        <% }); %>
+      </ul>
+    <%} else {%>
+      <p>Nenhum livro cadastrado.</p>
+    <%}%>
+    <a href="/cadastroLivro">Cadastrar Novo Livro</a>
+</body>
+</html>
