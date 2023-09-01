@@ -24,7 +24,7 @@ app.use(
 
 function requireAuth(req, res, next){
   if(req.session.nomeUser){
-    next(); //ousuário está autenticado, continua com a rota
+    next(); //o usuário está autenticado, continua com a rota
   } 
   else{
     res.redirect('/login'); //usuário não está autenticado, redireciona pra página de login

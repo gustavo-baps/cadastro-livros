@@ -4,10 +4,16 @@ async function cadastrarLivro(req, res){
   const livroData = req.body;
 
   try{
-    await livroModel.addLivroToDatabase(livroData);
-    res.redirect('/livros');
+    const livroExiste = await livroModel.checkLivro(livroData.titulo);
+    if(livroExiste){
+      res.render('cadastroLivro', {erro: 'Livro já existe'});
+    }
+    else{
+      await livroModel.addLivroToDatabase(livroData);
+      res.redirect('/livros');
+    }
   }catch(error){
-    res.render('cadastroLivro', { erro: 'Erro ao cadastrar livro.' });
+    res.render('cadastroLivro', {erro: 'Erro ao cadastrar livro.'});
   }
 }
 async function excluirLivro(req, res){
