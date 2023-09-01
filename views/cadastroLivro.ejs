@@ -8,7 +8,7 @@
     <% if (erro) { %>
       <p><%= erro %></p>
     <% } %>
-    <form action="/cadastrarLivro" method="post">
+    <form action="/cadastrarLivro" method="post" enctype="multipart/form-data">
         <label for="titulo">Título:</label>
         <input type="text" name="titulo" required><br>
         <label for="resenha">Resenha:</label>
@@ -21,8 +21,8 @@
         <input type="text" name="isbn" required><br>
         <label for="editora">Editora:</label>
         <input type="text" name="editora" required><br>
-        <label for="imagem_capa">Imagem da Capa (URL):</label>
-        <input type="url" name="imagem_capa" required><br>
+        <label for="imagem_capa">Imagem da Capa:</label>
+        <input type="file" name="imagem_capa"><br>
         <input type="submit" value="Cadastrar">
     </form>
 </body>

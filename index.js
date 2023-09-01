@@ -3,7 +3,18 @@ const app = express();
 const path = require('path');
 const connection = require('./models/db');
 const session = require('express-session');
-
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: path.join(__dirname, 'public', 'uploads'),
+  filename: (req, file, cb)=>{
+    const extrairNome = path.extname(file.originalname);
+    const filename = `${Date.now()}${extrairNome}`;
+    cb(null, filename);
+  }
+});
+const upload = multer({
+  storage: storage
+});
 app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -90,7 +101,23 @@ app.get('/cadastroLivro', requireAuth, (req, res) => {
   res.render('cadastroLivro', { erro: null });
 });
 
-app.post('/cadastrarLivro', requireAuth, livroController.cadastrarLivro);
+app.post('/cadastrarLivro', requireAuth, upload.single('imagem_capa'), async(req,res)=>{
+  const livroData = req.body;
+  try{
+    const livroExiste = await livroModel.checkLivro(livroData.titulo);
+    if(livroExiste){
+      res.render('cadastroLivro', {erro: 'Livro já existe'});
+    }
+    else{
+      const imagem_capa = `/uploads/${req.file.filename}`;
+      await livroModel. addLivroToDatabase({...livroData, imagem_capa});
+      res.redirect('/livros')
+    }
+  }catch(error){
+    console.log(error);
+    res.render('cadastroLivro', {erro: 'Erro ao realizar cadastro'});
+  }
+});
 app.post('/deleteLivro', requireAuth, livroController.excluirLivro);
 
 
