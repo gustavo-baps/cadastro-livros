@@ -118,6 +118,16 @@ app.post('/cadastrarLivro', requireAuth, upload.single('imagem_capa'), async(req
     res.render('cadastroLivro', {erro: 'Erro ao realizar cadastro'});
   }
 });
+app.get('/livro/:id', requireAuth, async(req, res)=>{
+  try{
+    const livroId = req.params.id;
+    const livro = await livroModel.getLivroById(livroId);
+    res.render('unicoLivro', {livro});
+    console.log(livro.titulo)
+  }catch(error){
+    res.render('unicoLivro', {livro: null, erro: 'Erro ao carregar o livro'});
+  }
+})
 app.post('/deleteLivro', requireAuth, livroController.excluirLivro);
 
 

@@ -40,6 +40,24 @@ async function getLivroFromDatabase(){
     });
   });
 }
+async function getLivroById(id){
+  return new Promise((resolve, reject)=>{
+    const query = `SELECT * FROM livros WHERE id = ?`;
+    connection.query(query, [id], (err, results)=>{
+      if(err){
+        reject(err);
+      }
+      else{
+        if(results.length > 0){
+          resolve(results[0]);
+        }
+        else{
+          resolve(null);
+        }
+      }
+    });
+  });
+}
 async function checkLivro(titulo){
   return new Promise((resolve, reject)=>{
     const query = 'SELECT COUNT(*) AS count FROM livros WHERE titulo = ?';
@@ -58,5 +76,6 @@ module.exports = {
   addLivroToDatabase,
   deleteLivroFromDatabase,
   getLivroFromDatabase,
-  checkLivro
+  checkLivro,
+  getLivroById
 };

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Detalhes</title>
+    <%- include('./links')%>
+</head>
+<body>
+    <%- include('./header')%>
+    <div id="voltar">
+        <i class="bi bi-arrow-left" style="font-size: 1rem;"></i><a href="/livros">Voltar</a>
+    </div>
+    <%if(livro){%>
+        <div id="infoLivroUnico">
+            <div id="imagemLivroUnico">
+                <img src="<%=livro.imagem_capa%>" alt="<%=livro.titulo%>">
+            </div>
+            <div id="restoLivroUnico">
+                <h3><%= livro.titulo%></h3>
+                <p><strong>Autor: </strong><%=livro.autor%></p>
+                <p><strong>Categoria: </strong><%=livro.categoria%></p> 
+                <p><strong>ISBN: </strong><%= livro.isbn%></p>
+                <p><strong>Resenha: </strong><%=livro.resenha%></p>
+                <form action="/deleteLivro" method="post">
+                    <input type="hidden" name="id" value="<%= livro.id %>">
+                    <button type="submit" class="btn btn-warning">Excluir</button>
+                </form>
+            </div>
+        </div>
+    <%}else{%>
+        <p>Não foi possível encontrar o livro</p>
+    <%}%>
+</body>
+</html>
