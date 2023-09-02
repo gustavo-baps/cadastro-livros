@@ -2,9 +2,14 @@
 <html>
 <head>
     <title>Homepage</title>
+    <%- include('./links')%>
 </head>
 <body>  
-    <%- include('./header')%>
+  <header id="header">
+    <div id="logo">
+        <img src="https://i.im.ge/2023/08/31/wST3XL.imagem-2023-08-30-191741648-removebg-preview.png">
+    </div>
+</header>
     <h1>Bem-vindo à pagina do usuário</h1>
     <% if(usuario){ %>
       <p>Usuário logado: <%= usuario.nomeUser %></p>

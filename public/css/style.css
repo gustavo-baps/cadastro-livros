@@ -42,7 +42,9 @@
     border: 0.1px solid #d6d5d5;    
 }
 #livro img{
-    margin: 0.5vw;
+    margin: 0.2vw;
+    width: 95%;
+    height: 62%;
 }
 #livro h3{
     font-size: 2vw;
