@@ -39,9 +39,24 @@ function removeUserFromDatabase(nomeUser){
     });
   });
 }
+function checkUsuario(nomeUser){
+  return new Promise((resolve, reject)=>{
+    const query = 'SELECT COUNT(*) AS count FROM usuarios WHERE nomeUser = ?';
+    connection.query(query, [nomeUser], (err, results)=>{
+      if(err){
+        reject(err);
+      }
+      else{
+        const count = results[0].count;
+        resolve(count > 0);
+      }
+    })
+  })
+}
 
 module.exports = {
   addUserToDatabase,
   getUserFromDatabase,
   removeUserFromDatabase,
+  checkUsuario
 };

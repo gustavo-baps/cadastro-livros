@@ -10,14 +10,17 @@
         <i class="bi bi-arrow-left" style="font-size: 1rem;"></i><a href="/livros">Voltar</a>
     </div>
     <%if(livro){%>
-        <div id="infoLivroUnico">
+        <div id="infoLivroUnico" style="margin-bottom: 10vw;">
             <div id="imagemLivroUnico">
                 <img src="<%=livro.imagem_capa%>" alt="<%=livro.titulo%>">
             </div>
             <div id="restoLivroUnico">
                 <h3><%= livro.titulo%></h3>
-                <p><strong>Autor: </strong><%=livro.autor%></p>
-                <p><strong>Categoria: </strong><%=livro.categoria%></p> 
+                <div id="categoAutor">
+                    <p><%=livro.autor%></p>
+                    <p><%=livro.categoria%></p>
+                </div> 
+                <div id="linha" style="height: 1px; background-color: black; width: 100%;"></div>
                 <p><strong>ISBN: </strong><%= livro.isbn%></p>
                 <p><strong>Resenha: </strong><%=livro.resenha%></p>
                 <form action="/deleteLivro" method="post">
@@ -27,7 +30,18 @@
             </div>
         </div>
     <%}else{%>
-        <p>Não foi possível encontrar o livro</p>
+        <div style="margin-left: 42vw;" id="divErro">
+        <p id="erroExiste" class="alert alert-danger">Erro ao encontrar o livro</p>
+          </div>
+          <script>
+            setTimeout(function(){
+                    var msg = document.getElementById('divErro');
+                    if(msg){
+                        msg.innerHTML = '';
+                    }
+                }, 5000);
+          </script>
     <%}%>
+    <%- include('./footer')%>
 </body>
 </html>

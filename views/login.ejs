@@ -2,18 +2,39 @@
 <html>
 <head>
     <title>Login</title>
+    <%- include('./links')%>
 </head>
 <body>
-    <h1>Login</h1>
-    <% if (erro) { %>
-        <p style="color: rgb(194, 2, 2);"><%= erro %></p>
-    <% } %>
-    <form action="/login" method="post">
-        <label for="nomeUser">Usuário:</label>
-        <input type="text" id="nomeUser" name="nomeUser" required>
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required>
-        <input type="submit" value="Entrar">
+    <header id="header">
+        <div id="logo">
+            <img src="https://i.im.ge/2023/08/31/wST3XL.imagem-2023-08-30-191741648-removebg-preview.png">
+        </div>
+    </header>
+    <h1 id="textoCentro">Login</h1>
+    <%if(erro){%>
+        <div style="margin-left: 42vw;" id="divErro">
+            <p id="erroExiste" class="alert alert-danger"><%= erro %></p>
+          </div>
+          <script>
+            setTimeout(function(){
+                    var msg = document.getElementById('divErro');
+                    if(msg){
+                        msg.innerHTML = '';
+                    }
+                }, 5000);
+          </script>
+    <%}%>
+    <form id="infoUser" action="/login" method="post">
+        <div>
+            <label for="nomeUser">Usuário:</label>
+            <input type="text" id="nomeUser" name="nomeUser" required>
+        </div>
+        <div style="margin-top: 1vw;">
+            <label for="senha">Senha:</label>
+            <input style="margin-left: 0.8vw;"  type="password" id="senha" name="senha" required>
+        </div>
+        <input class="btn btn-warning" style="margin-top: 2vw; margin-left: 9vw;" type="submit" value="Entrar">
     </form>
+    <a style="margin-left: 42vw; margin-top: 2vw;" href="/cadastro">Sem conta?  Cadastre-se</a>
 </body>
 </html>

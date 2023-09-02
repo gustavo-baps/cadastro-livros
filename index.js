@@ -46,6 +46,9 @@ app.get('/cadastro', (req, res) => {
   res.render('cadastro', { erro: null });
 });
 
+app.get('/', (req, res) => {
+  res.redirect('/login');
+});
 app.post('/cadastro', usuarioController.cadastrarUsuario);
 
 app.get('/login', (req, res) => {

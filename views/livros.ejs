@@ -6,23 +6,35 @@
   </head>
   <body>
     <%- include('./header')%>
-      <h1 id="cadastrados">Livros Cadastrados</h1>
-      <% if(livros && livros.length > 0){%>
-        <div class="row">
+      <h1 id="cadastrados">LIVROS CADASTRADOS</h1>
+      <div class="row" id="divLivros">
+        <% if(livros && livros.length > 0){%>
           <% livros.forEach(livro => { %>
-            <div id="livro" class="col-md-3">
-              <img class="img-fluid" id="livroCapa" src="<%= livro.imagem_capa %>" alt="<%= livro.titulo %>">
-              <h3><%= livro.titulo %></h3>
-              <p><strong>Categoria:</strong> <%= livro.categoria %></p>
-              <div class="d-flex flex-column" style="height: 100%;">
-                <a class="btn btn-warning" href="livro/<%= livro.id %>">Ver mais</a>
+              <div id="livro" class="col-md-3">
+                <img class="img-fluid" id="livroCapa" src="<%= livro.imagem_capa %>" alt="<%= livro.titulo %>">
+                <h3><%= livro.titulo %></h3>
+                <p><strong>Categoria:</strong> <%= livro.categoria %></p>
+                <div id="verMais">
+                  <a class="btn btn-warning" href="livro/<%= livro.id %>">Ver mais</a>
+                </div>
               </div>
+            <% }); %>
+            <div href="/cadastroLivro" id="cadastrarNovo" class="col-md-3">
+                <div class="mais">
+                  <img src="/png_falso-removebg-preview.png" alt="">
+                </div>
             </div>
-          <% }); %>
+            <script>
+              var cadastrar = document.getElementById('cadastrarNovo');
+              cadastrar.addEventListener('click', function(){
+                window.location.href = "/cadastroLivro";
+              })
+            </script>
           </div>
-      <%} else {%>
-        <p>Nenhum livro cadastrado.</p>
-      <%}%>
-      <a href="/cadastroLivro">Cadastrar Novo Livro</a>
+        <%} else {%>
+          <p>Nenhum livro cadastrado.</p>
+        <%}%>
+      </div>
+      <%- include('./footer')%>
   </body>
   </html>

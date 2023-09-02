@@ -6,11 +6,24 @@
 </head>
 <body>
     <%- include('./header')%>
-    <h1>Cadastrar Livro</h1>
-    <% if (erro) { %>
-      <p><%= erro %></p>
-    <% } %>
-    <form action="/cadastrarLivro" method="post" enctype="multipart/form-data">
+    <div id="voltar">
+      <i class="bi bi-arrow-left" style="font-size: 1rem;"></i><a href="/livros">Voltar</a>
+    </div>
+    <h1 style="margin-left: 40vw; margin-top: 2vw;">Cadastrar Livro</h1>
+    <%if(erro){%>
+      <div style="margin-left: 42vw;" id="divErro">
+        <p id="erroExiste" class="alert alert-danger"><%= erro %></p>
+      </div>
+      <script>
+        setTimeout(function(){
+                var msg = document.getElementById('divErro');
+                if(msg){
+                    msg.innerHTML = '';
+                }
+            }, 5000);
+      </script>
+    <%}%>
+    <form id="infoCadastroLivro" action="/cadastrarLivro" method="post" enctype="multipart/form-data">
         <label for="titulo">Título:</label>
         <input type="text" name="titulo" required><br>
         <label for="resenha">Resenha:</label>
@@ -25,7 +38,8 @@
         <input type="text" name="editora" required><br>
         <label for="imagem_capa">Imagem da Capa:</label>
         <input type="file" name="imagem_capa"><br>
-        <input type="submit" value="Cadastrar">
+        <input style="margin-left: 17vw; width: 10vw; margin-bottom: 5vw;" class="btn btn-warning" type="submit" value="Cadastrar">
     </form>
+    <%- include('./footer')%>
 </body>
 </html>

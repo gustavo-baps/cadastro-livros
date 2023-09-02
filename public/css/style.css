@@ -1,15 +1,24 @@
 *{
     padding: none;
     box-sizing: border-box;
-    margin: 0 auto;
+    margin: 0;
     font-family: 'Raleway';
+    color: black;
+}
+body{
+    width: 100%;
+    margin: 0;
+    display: grid;
 }
 #header{
     background-color: #fdd900;
     height: 6vw;
-}#cadastrados{
+    box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.25);
+}
+#cadastrados{
     margin: 2vw;
-    font-size: 2.5vw;
+    font-size: 1.5vw;
+    font-weight: 800;
 }
 #logo{
     height: 6vw;
@@ -20,7 +29,11 @@
 }
 #usuario{
     margin-left: 90vw;
-    margin-top: -4.5vw;
+    margin-top: -2.3vw;
+}
+#sair a{
+    text-decoration: none;
+    color: black;
 }
 #usuario a{
     text-decoration: none;
@@ -29,22 +42,32 @@
 #livroCapa{
     width: 10vw;
 }
-
+#divLivros{
+    width: 90%;
+    margin-left: 4vw;
+}
 #livro{
-    padding: 1vw;
+    position: relative;
+    padding: 0.5vw;
     float: left;
-    margin-right: 4vw;
-    margin-left: 2vw;
+    margin-left: 3vw;
     margin-bottom: 1vw;
     width: 18vw;
     border-radius: 0.5vw;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    border: 0.1px solid #d6d5d5;    
+    box-shadow: 0 3px 12px rgba(0,0,0,.15);
+    transition: transform 0.2s;    
+}
+#livro:hover{
+    transform: scale(1.02);
+}
+#erroExiste{
+    width: 15vw;
 }
 #livro img{
-    margin: 0.2vw;
-    width: 95%;
-    height: 62%;
+    margin-left: 2.5vw;
+    margin-bottom: 1.5vw;
+    width: 65%;
+    height: 52%;
 }
 #livro h3{
     font-size: 2vw;
@@ -52,6 +75,33 @@
 #livro a{
     width: 100%;
     margin-top: 0.5vw;
+}
+#verMais{
+    position: absolute;
+    bottom: 0;
+    width: 17vw;
+    margin-bottom: 1vw;
+}
+#cadastrarNovo{
+    padding: 0.5vw;
+    float: right;
+    margin-left: 1.5vw;
+    margin-bottom: 1vw;
+    width: 18vw;
+    height: 31vw;
+    border-radius: 0.5vw;
+    box-shadow: 0 3px 12px rgba(0,0,0,.15);
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+#cadastrarNovo img{
+    opacity: 10%;
+    width: 80%;
+    margin-top: 7vw;
+    margin-left: 1.5vw;
+}
+#cadastrarNovo:hover{
+    transform: scale(1.02);
 }
 #voltar a{
     text-decoration: none;
@@ -64,15 +114,87 @@
 }
 #restoLivroUnico{
     padding: 2vw;
-    width: 50vw;
+    width: 40vw;
     border-radius: 1vw;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 3px 12px rgba(0,0,0,.15);
     border: 0.1px solid #d6d5d5;
 }
 #imagemLivroUnico{
     margin-left: 15vw;
+    margin-right: 5vw;
     width: 18vw;
 }
 #imagemLivroUnico img{
     width: 100%;
+}
+#categoAutor{
+    display: flex;
+}
+#categoAutor p{
+    margin-right: 10vw;
+    opacity: 50%;
+}
+#linha{
+    margin-top: -0.5vw;
+    margin-bottom: 1vw;
+    opacity: 40%;
+}
+#textoCentro{
+    margin-top: 5vw;
+    margin-left: 45vw;
+}
+#infoUser{
+    margin-left: 37vw;
+    margin-top: 2vw;
+}
+#infoCadastroLivro{
+    align-items: flex-start;
+    margin-left: 30vw;
+    text-align: left;
+}
+#infoCadastroLivro label{
+    font-weight: bold;
+}
+#infoCadastroLivro input,
+#infoCadastroLivro textarea,
+#infoCadastroLivro select{
+    width: 50%;
+    margin-bottom: 1vw;
+    padding: 0.5vw;
+    border: 1px solid #ccc;
+    border-radius: 0.2vw;
+}
+#infoCadastroLivro p{
+    width: 5vw;
+    margin-bottom: 1vw;
+}
+footer{
+    display: flex;
+    background-color: black;
+}
+footer p{
+    color: white;
+    margin-bottom: 1.5vw;
+    font-size: 1vw;
+}
+footer h3{
+    color: white;
+    margin-bottom: 1vw;
+    font-size: 1.2vw;
+    font-weight: 700;
+}
+#infoFooter{
+    margin-top: 3vw;
+    margin-left: 3vw;
+    margin-right: 17vw;
+}
+#formaPag{
+    margin-bottom: 1vw;
+}
+#imagensPag{
+    display: flex;
+}
+#imagensPag img{
+    width: 3vw;
+    margin: 1vw;
 }

@@ -9,14 +9,18 @@
     <div id="logo">
         <img src="https://i.im.ge/2023/08/31/wST3XL.imagem-2023-08-30-191741648-removebg-preview.png">
     </div>
-</header>
-    <h1>Bem-vindo à pagina do usuário</h1>
-    <% if(usuario){ %>
-      <p>Usuário logado: <%= usuario.nomeUser %></p>
+  </header>
+  <div id="voltar">
+    <i class="bi bi-arrow-left" style="font-size: 1rem;"></i><a href="/livros">Voltar</a>
+  </div>
+    <h1 style="margin-left: 30vw; margin-top: 2vw;">Bem-vindo à pagina do usuário</h1>
+    <%if(usuario){ %>
+      <h4 style="margin-left: 40vw; margin-top: 2vw; margin-bottom: 2vw;">Usuário logado: <%= usuario.nomeUser %></h4>
       <form action="/delete" method="post">
         <input type="hidden" name="nomeUser" value="<%= usuario.nomeUser %>">
-        <input type="submit" value="Excluir Usuário">
+        <input style="margin-bottom: 11.75vw; margin-left: 44vw;" class="btn btn-warning" type="submit" value="Excluir Usuário">
       </form>
     <%}%>
+    <%- include('./footer')%>
 </body>
 </html>

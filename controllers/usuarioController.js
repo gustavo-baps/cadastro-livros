@@ -3,15 +3,22 @@ const usuarioModel = require('../models/usuarioModel');
 const saltRounds = 10;
 
 async function cadastrarUsuario(req, res){
-  const { nomeUser, senha } = req.body;
-
+  const nomeUser = req.body.nomeUser;
+  const senha = req.body.senha;
   try{
-    const hashSenha = await bcrypt.hash(senha, saltRounds);
-    await usuarioModel.addUserToDatabase(nomeUser, hashSenha);
-    res.redirect('/login');
+    console.log(nomeUser);
+    const userExiste = await usuarioModel.checkUsuario(nomeUser);
+    if(!userExiste){
+      const hashSenha = await bcrypt.hash(senha, saltRounds);
+      await usuarioModel.addUserToDatabase(nomeUser, hashSenha);
+      res.redirect('/login');
+    }
+    else{
+      res.render('cadastro', {erro: 'Usuário já existe'});
+    }
   }catch(error){
-    console.log(error)
-    res.render('cadastro', {erro: 'Usuário já existe!'});
+    console.log(error);
+    res.render('cadastro', {erro: 'Erro ao cadastrar usuário'})
   }
 }
 
